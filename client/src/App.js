@@ -4,23 +4,33 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 import {
+  // User Dta
   registerUser,
-  verifyUser,
+  // verifyUser,
   allUsers,
   loginUser,
-  getActiveUser
+
+  // Site & Page
+  getUserSites,
+  newUserSite,
+  addPage,
+  updatePage,
+  deleteSite,
+  getSite
 } from './services/api-helper'
 
 
 import Auth from './views/Auth'
 import Dashboard from './views/Dashboard';
-import Home from './views/Home';
+import Create from './views/Create'
+import Edit from './views/Edit';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentView: 'login',
+      currentUser: [],
       loginFormData: {
         email: '',
         password: '',
@@ -31,9 +41,33 @@ class App extends Component {
       },
       users: [],
       loginError: false,
+      sites: [],
+      snackFormData: {
+        name: "",
+        category: ""
+      },
+      pages: [],
+      pageFormData: {
+        content: "",
+      },
+      currentSiteId: [],
     }
   }
 
+
+  // ================= //
+  // ***** AUTH  ***** //
+  // ================= //
+
+
+
+  async componentDidMount() {
+    const resp = await axios.get('http://localhost:3000/api/users');
+    const users = resp.data;
+    this.setState({
+      users: users,
+    });
+  };
 
 
   // SB - Handle Register Form Change
@@ -47,10 +81,7 @@ class App extends Component {
     }));
   }
 
-
-
   // SB - Registration Submit
-
   handleRegisterSubmit = async (ev) => {
     try {
       ev.preventDefault();
@@ -74,9 +105,7 @@ class App extends Component {
     }
   }
 
-
   //SB - Handle Login Change
-
   handleLoginFormChange = (ev) => {
     const { name, value } = ev.target;
     this.setState(prevState => ({
@@ -87,10 +116,7 @@ class App extends Component {
     }));
   }
 
-
   // SB - Handle Login Submit
-
-
   handleLoginSubmit = async (ev) => {
     try {
       ev.preventDefault();
@@ -115,13 +141,46 @@ class App extends Component {
   }
 
 
-  async componentDidMount() {
-    const resp = await axios.get('http://localhost:3000/api/users');
-    const users = resp.data;
+
+
+
+  // ================= //
+  // ***** SITES ***** //
+  // ================= //
+
+
+  // GET ALL SITES
+  getUserSites = async () => {
+    const sites = await getUserSites();
     this.setState({
-      users: users,
-    });
-  };
+      sites
+    })
+  }
+
+
+  // NEW SITE
+  newSite = async (e) => {
+    e.preventDefault();
+
+    const userID = this.state.currentUser.id;
+    const site = await newUserSite(userID, this.state.snackFormData);
+    console.log(this.state.currentUser);
+    this.setState(prevState => ({
+      sites: [...prevState.sites, site],
+      currentSiteId: site.id,
+    }))
+    this.props.history.push("/edit/form")
+  }
+
+  handleFormChange = (e) => {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      snackFormData: {
+        ...prevState.snackFormData,
+        [name]: value
+      }
+    }))
+  }
 
   render() {
     return (
@@ -144,6 +203,24 @@ class App extends Component {
                 handleLoginFormChange={this.handleLoginFormChange}
               />
 
+            )} />
+
+            <Route exact path="/create" render={() => (
+              <Create
+                snackFormData={this.state.snackFormData}
+                handleFormChange={this.handleFormChange}
+                newSite={this.newSite}
+                handleCreate={this.handleCreate}
+              />
+            )} />
+
+            <Route path="/edit" render={(props) => (
+              <Edit
+                {...props}
+                site={this.state.site}
+                editPage={this.state.page}
+                postPage={this.postPage}
+              />
             )} />
           </Switch>
         </div>

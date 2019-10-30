@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="24" height="24" viewBox="0, 0, 24, 24">
+  <g id="Layer_1" opacity="0.25">
+    <g id="text-icon">
+      <path d="M0,0 L24,0 L24,3.75 L0,3.75 L0,0 z" fill="#B2BEC3"/>
+      <path d="M0,10.125 L24,10.125 L24,13.875 L0,13.875 L0,10.125 z" fill="#B2BEC3"/>
+      <path d="M0,20.25 L24,20.25 L24,24 L0,24 L0,20.25 z" fill="#B2BEC3"/>
+    </g>
+  </g>
+</svg>
