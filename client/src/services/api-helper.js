@@ -47,25 +47,22 @@ const getToken = () => {
 }
 
 // LOGIN USER
-export const loginUser = async (loginData) => {
-  const resp = await api.post('/login', { user: loginData });
-  console.log(resp);
-  const token = resp.data;
-  storeToken(token);
-  return (resp)
-}
-
-
-// VERIFY USER
-// export const verifyUser = async () => {
-//   const token = localStorage.getItem('authToken');
-//   if (token) {
-//     api.defaults.headers.common.authorization = `Bearer ${token}`
-//     const resp = await api.get('/verify');
-//     return resp.data
-//   }
-//   return false;
+// export const loginUser = async (loginData) => {
+//   const resp = await api.post('/login', { user: loginData });
+//   localStorage.setItem('authToken', resp.token);
+//   api.defaults.headers.common.authorization = `Bearer ${resp.data.user.token}`
+//   console.log(resp);
+//   console.log(resp.data.user.token);
+//   return (resp)
 // }
+
+export const loginUser = async (loginData) => {
+  const resp = await api.post('/login', { user: loginData })
+  localStorage.setItem('authToken', resp.data.user.token);
+  api.defaults.headers.common.authorization = `Bearer ${resp.data.user.token}`
+  console.log(resp);
+  return resp.data.user
+}
 
 //DELETE USER
 export const deleteUser = async (id) => {

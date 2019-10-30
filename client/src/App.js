@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 import {
-  // User Dta
+  // User Data
   registerUser,
-  // verifyUser,
   allUsers,
   loginUser,
+  getActiveUser,
 
   // Site & Page
   getUserSites,
@@ -62,11 +62,13 @@ class App extends Component {
 
 
   async componentDidMount() {
-    const resp = await axios.get('http://localhost:3000/api/users');
-    const users = resp.data;
+    const users = await getActiveUser();
+    this.getUserSites();
+    const allUserSites = await getUserSites();
     this.setState({
-      users: users,
+      currentUser: users,
     });
+    console.log(allUserSites);
   };
 
 
