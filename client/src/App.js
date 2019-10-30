@@ -13,12 +13,14 @@ import {
 
 
 import Auth from './views/Auth'
+import Dashboard from './views/Dashboard';
+import Home from './views/Home';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentView: 'auth',
+      currentView: 'login',
       loginFormData: {
         email: '',
         password: '',
@@ -127,6 +129,8 @@ class App extends Component {
         <div>
           {/* Public Routes */}
           <Switch>
+            {/* <Route path="/" component={Home} /> */}
+            <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth" render={() => (
               <Auth
                 currentView={this.state.currentView}

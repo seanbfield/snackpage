@@ -70,6 +70,20 @@ router.post('/login', auth.optional, (req, res, next) => {
 });
 
 
+//GET ALL USERS
+router.get('/', function (req, res) {
+  Users.find({}, function (err, users) {
+    var userMap = {};
+
+    users.forEach(function (user) {
+      userMap[user._id] = user;
+    });
+    res.send(userMap);
+    console.log(userMap);
+
+  });
+});
+
 
 //GET current route (required, only authenticated users have access)
 router.get('/current', auth.required, (req, res, next) => {

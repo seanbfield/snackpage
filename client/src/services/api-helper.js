@@ -33,6 +33,7 @@ export const getActiveUser = async () => {
 // CREATE USER
 export const registerUser = async (registerData) => {
   const resp = await api.post('/', { user: registerData })
+  // storeToken(resp.data)
   console.log(resp);
   return resp.data
 }
@@ -43,10 +44,10 @@ const storeToken = (token) => {
   api.defaults.headers.common.authorization = `Bearer ${token}`;
 }
 
-// const getToken = () => {
-//   const token = localStorage.getItem('authToken');
-//   api.defaults.headers.common.authorization = `Bearer ${token}`;
-// }
+const getToken = () => {
+  const token = localStorage.getItem('authToken');
+  api.defaults.headers.common.authorization = `Bearer ${token}`;
+}
 
 // LOGIN USER
 export const loginUser = async (userInfo) => {
