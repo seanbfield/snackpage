@@ -95,9 +95,6 @@ router.get('/:id', function (req, res) {
     .catch(err => next(err));
 });
 
-
-
-
 //GET current route (required, only authenticated users have access)
 router.get('/current', auth.required, (req, res, next) => {
   const { payload: { id } } = req;

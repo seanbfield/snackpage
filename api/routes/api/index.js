@@ -9,8 +9,8 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// IMPORT
-router.post('/users/:user_id/sites/:site_id/pages', function (req, res, next) {
+
+router.post('/:user_id/sites/:site_id/pages', function (req, res, next) {
   const saveData = {
     userId: req.params.user_id,
     siteId: req.params.site_id,
@@ -35,7 +35,9 @@ router.post('/users/:user_id/sites/:site_id/pages', function (req, res, next) {
 
 })
 
-router.put('/users/:user_id/sites/:site_id/pages', function (req, res, next) {
+
+//UPDATE SITE
+router.put('/:user_id/sites/:site_id/pages', function (req, res, next) {
   const condition = {
     userId: req.params.user_id,
     siteId: req.params.site_id
@@ -48,7 +50,9 @@ router.put('/users/:user_id/sites/:site_id/pages', function (req, res, next) {
     .catch(next);
 })
 
-router.get('/users/:user_id/sites/:site_id', function (req, res, next) {
+
+//GET SITE
+router.get('/:user_id/sites/:site_id', function (req, res, next) {
   const condition = {
     userId: req.params.user_id,
     siteId: req.params.site_id
@@ -61,7 +65,9 @@ router.get('/users/:user_id/sites/:site_id', function (req, res, next) {
     .catch(next);
 })
 
-router.delete('/users/:user_id/sites/:site_id', function (req, res, next) {
+
+//DELETE SITE
+router.delete('/:user_id/sites/:site_id', function (req, res, next) {
   const condition = {
     userId: req.params.user_id,
     siteId: req.params.site_id
