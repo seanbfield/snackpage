@@ -5,6 +5,7 @@ const session = require('express-session');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const errorHandler = require('errorhandler');
+const pathfinderUI = require('pathfinder-ui')
 
 //Configure mongoose's promise to global promise
 mongoose.promise = global.Promise;
@@ -60,5 +61,10 @@ app.use((err, req, res, next) => {
     },
   });
 });
+
+app.use('/pathfinder', function (req, res, next) {
+  pathfinderUI(app)
+  next()
+}, pathfinderUI.router)
 
 module.exports = app;

@@ -10,6 +10,8 @@ router.get('/', function (req, res, next) {
 });
 
 
+//Create Site
+
 router.post('/:user_id/sites/:site_id/pages', function (req, res, next) {
   const saveData = {
     userId: req.params.user_id,

@@ -6,7 +6,7 @@ const auth = require('../auth');
 const Users = mongoose.model('Users');
 
 //POST new user route (optional, everyone has access)
-router.post('/', auth.optional, (req, res, next) => {
+router.post('/', (req, res, next) => {
   const { body: { user } } = req;
 
   if (!user.email) {
@@ -84,15 +84,13 @@ router.get('/', function (req, res) {
   });
 });
 
-
 //GET ALL USER BY ID
-router.get('/:id', function (req, res) {
+router.get('/:user_id', function (req, res) {
   Users.findById(req.params.id)
     .then(userFound => {
       if (!userFound) { return res.status(404).end(); }
       return res.status(200).json(userFound);
     })
-    .catch(err => next(err));
 });
 
 //GET current route (required, only authenticated users have access)
